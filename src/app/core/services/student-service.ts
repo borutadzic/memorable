@@ -35,4 +35,10 @@ export class StudentService {
     const current = this.students();
     return current.length > 0 ? Math.max(...current.map(s => s.id)) + 1 : 1;
   }
+
+  updateStudent(updatedStudent: Student): void {
+  this.students.update(students => 
+    students.map(s => s.id === updatedStudent.id ? updatedStudent : s)
+  );
+}
 }

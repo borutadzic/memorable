@@ -1,5 +1,8 @@
 <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="student-form">
-  <h2>Add New Student</h2>
+    @if (isEditMode) {
+        <input type="hidden" formControlName="id">
+    }
+  <h2>{{ dialogTitle }}</h2>
   
   <div class="form-row">
     <mat-form-field appearance="outline" class="half-width">

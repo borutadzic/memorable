@@ -7,6 +7,9 @@
     <tr *ngFor="let student of dataSource">
       <td>{{ student.firstName }}</td>
       <td>{{ student.lastName }}</td>
+      <td>
+      <button (click)="openStudentForm(student)">Edit</button>
+    </td>
     </tr>
   </table>
 }

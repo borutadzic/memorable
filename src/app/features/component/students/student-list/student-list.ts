@@ -5,6 +5,7 @@ import { StudentService } from '../../../../core/services/student-service';
 import { NgFor } from '@angular/common';
 import { StudentForm } from '../../../students/student-form/student-form';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-student-list',
@@ -19,7 +20,7 @@ export class StudentList implements OnInit {
   dataSource: Student[] = [];
   isLoading = true;
 
-  constructor(private studentService: StudentService, private dialog: MatDialog) {}
+  constructor(private studentService: StudentService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.loadStudents();
@@ -31,20 +32,28 @@ export class StudentList implements OnInit {
     this.isLoading = false;
   }
 
-  openStudentForm(): void {
+  openStudentForm(student?: Student): void {
     const dialogRef = this.dialog.open(StudentForm, {
       width: '700px',
-      maxHeight: '90vh'
+      maxHeight: '90vh',
+      data: student
     });
 
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-      console.log('Student added:', result);
+      if (student) {
+        this.studentService.updateStudent(result);
+        this.snackBar.open('Student updated successfully!', 'Close', {
+          duration: 3000
+        });
+      } else {
+        this.studentService.addStudent(result);
+        this.snackBar.open('Student added successfully!', 'Close', {
+          duration: 3000
+        });
+      }
       this.loadStudents();
     }
-
-    const newStudent = this.studentService.addStudent(result);
-    this.dataSource = this.studentService.getStudents();
   });
     
   }
