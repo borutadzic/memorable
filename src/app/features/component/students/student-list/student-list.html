@@ -1,0 +1,12 @@
+<h2>Student List</h2>
+
+@if (isLoading) {
+  <p>Loading...</p>
+} @else {
+  <table>
+    <tr *ngFor="let student of dataSource">
+      <td>{{ student.firstName }}</td>
+      <td>{{ student.lastName }}</td>
+    </tr>
+  </table>
+}
