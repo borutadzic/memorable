@@ -32,17 +32,21 @@ export class StudentList implements OnInit {
   }
 
   openStudentForm(): void {
-  const dialogRef = this.dialog.open(StudentForm, {
-    width: '700px',
-    maxHeight: '90vh'
-  });
+    const dialogRef = this.dialog.open(StudentForm, {
+      width: '700px',
+      maxHeight: '90vh'
+    });
 
   dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('Student added:', result);
-        this.loadStudents();
-      }
-    });
+    if (result) {
+      console.log('Student added:', result);
+      this.loadStudents();
+    }
+
+    const newStudent = this.studentService.addStudent(result);
+    this.dataSource = this.studentService.getStudents();
+  });
+    
   }
 
 }
