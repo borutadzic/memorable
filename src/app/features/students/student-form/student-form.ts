@@ -32,7 +32,7 @@ export class StudentForm {
     if (this.studentForm.valid) {
       const formValue = this.studentForm.value;
       const newStudent = {
-        id: [0],
+        id: this.isEditMode ? this.data.id : 0,
         firstName: formValue.firstName!,
         lastName: formValue.lastName!,
         birthYear: Number(formValue.birthYear),
@@ -51,6 +51,7 @@ export class StudentForm {
       this.isEditMode = true;
       this.studentForm.patchValue({
         ...this.data,
+        id: this.data.id,
         birthYear: this.data.birthYear.toString()
       });
     }
