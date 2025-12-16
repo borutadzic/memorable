@@ -1,0 +1,92 @@
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="student-form">
+  <h2>Add New Student</h2>
+  
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" placeholder="Enter first name">
+      
+      @if (studentForm.get('firstName')?.invalid && studentForm.get('firstName')?.touched) {
+        <mat-error>
+          @if (studentForm.get('firstName')?.hasError('required')) {
+            First name is required
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" placeholder="Enter last name">
+      
+      @if (studentForm.get('lastName')?.invalid && studentForm.get('lastName')?.touched) {
+        <mat-error>
+          @if (studentForm.get('lastName')?.hasError('required')) {
+            Last name is required
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Birth Year</mat-label>
+      <input matInput type="number" formControlName="birthYear" placeholder="e.g., 2000">
+      
+      @if (studentForm.get('birthYear')?.invalid && studentForm.get('birthYear')?.touched) {
+        <mat-error>
+          @if (studentForm.get('birthYear')?.hasError('required')) {
+            Birth year is required
+          }
+          @if (studentForm.get('birthYear')?.hasError('min') || studentForm.get('birthYear')?.hasError('max')) {
+            Enter a year between 1900 and 2025
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="student@example.com">
+      
+      @if (studentForm.get('email')?.invalid && studentForm.get('email')?.touched) {
+        <mat-error>
+          @if (studentForm.get('email')?.hasError('required')) {
+            Email is required
+          }
+          @if (studentForm.get('email')?.hasError('email')) {
+            Please enter a valid email
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address" placeholder="Street and number">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>City</mat-label>
+    <input matInput formControlName="city" placeholder="City">
+  </mat-form-field>
+
+  <div class="form-actions">
+    <button 
+      mat-raised-button 
+      color="primary" 
+      type="submit"
+      [disabled]="!studentForm.valid">
+      Save Student
+    </button>
+    
+    <button 
+      mat-button 
+      type="button" 
+      (click)="studentForm.reset()">
+      Reset Form
+    </button>
+  </div>
+</form>
