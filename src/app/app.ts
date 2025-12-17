@@ -4,7 +4,7 @@ import { Spinner } from './shared/components/spinner/spinner';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Spinner],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -12,9 +12,5 @@ export class App {
   protected readonly title = signal('frontend');
   isLoading = true;
 
-  constructor() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 2000);
-  }
+  constructor() {}
 }

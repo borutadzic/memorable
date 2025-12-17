@@ -10,10 +10,12 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { MatTableModule } from '@angular/material/table';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { Spinner } from "../../../../shared/components/spinner/spinner";
 
 @Component({
   selector: 'app-student-list',
-  imports: [RouterModule, NgFor, StudentForm, MatPaginatorModule, MatTableModule, MatButtonModule, MatIconModule],
+  imports: [RouterModule, MatPaginatorModule, MatTableModule, MatButtonModule, MatIconModule, Spinner, MatProgressSpinner],
   templateUrl: './student-list.html',
   styleUrl: './student-list.scss',
 })
@@ -38,9 +40,11 @@ export class StudentList implements OnInit {
 
   loadStudents(): void {
     this.isLoading = true;
-    this.dataSource = this.studentService.getStudents();
-    this.totalStudents = this.dataSource.length;
-    this.isLoading = false;
+    setTimeout(() => {
+      this.dataSource = this.studentService.getStudents();
+      this.totalStudents = this.dataSource.length;
+      this.isLoading = false;
+    }, 1500);
   }
 
   get pagedStudents(): Student[] {

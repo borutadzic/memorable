@@ -81,11 +81,14 @@
         Save Student
     </button>
     
+    @if (!isEditMode) {
     <button 
       mat-button 
       type="button" 
-      (click)="studentForm.reset()">
+      (click)="studentForm.reset()"
+      [disabled]="studentForm.pristine">
       Reset Form
     </button>
+  }
   </div>
 </form>

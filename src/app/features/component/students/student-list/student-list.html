@@ -8,8 +8,14 @@
   </div>
 
   @if (isLoading) {
+    <app-spinner 
+      [isLoading]="isLoading">
+    </app-spinner>
+  }
+
+  @if (isLoading) {
+    
     <div class="loading-state">
-      <p>Loading students...</p>
     </div>
   } 
   @else {

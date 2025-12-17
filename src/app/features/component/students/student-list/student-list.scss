@@ -1,5 +1,7 @@
 .student-list-container {
   padding: 20px;
+  position: relative;
+  min-height: 400px;
 }
 
 table {
@@ -32,4 +34,19 @@ th {
   text-align: center;
   padding: 40px;
   color: #666;
+}
+
+.local-spinner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  border-radius: 8px;
 }
