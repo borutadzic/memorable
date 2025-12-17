@@ -77,7 +77,7 @@
   </mat-form-field>
 
   <div class="form-actions">
-    <button mat-raised-button color="primary" type="submit" [disabled]="!studentForm.valid">
+    <button mat-raised-button color="primary" type="submit"> <!--I would prefer to keep the form disabled like this: [disabled]="!studentForm.valid" instead of snackbar error-->>
         Save Student
     </button>
     

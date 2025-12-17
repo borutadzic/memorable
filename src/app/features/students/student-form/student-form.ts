@@ -4,6 +4,7 @@ import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-student-form',
@@ -15,6 +16,7 @@ export class StudentForm {
   private fb = inject(FormBuilder);
   private dialogRef= inject(MatDialogRef<StudentForm>);
   private data = inject(MAT_DIALOG_DATA);
+  private snackBar = inject(MatSnackBar);
 
   studentForm = this.fb.group({
     firstName: ['', Validators.required],
@@ -44,6 +46,39 @@ export class StudentForm {
       console.log('New student:', newStudent);
       this.dialogRef.close(newStudent);
     }
+    else{
+      this.showFormErrors();
+    }
+  }
+
+  private showFormErrors(): void {
+    const errorFields = [];
+    
+    if (this.studentForm.get('firstName')?.hasError('required')) {
+      errorFields.push('First Name');
+    }
+    if (this.studentForm.get('lastName')?.hasError('required')) {
+      errorFields.push('Last Name');
+    }
+    if (this.studentForm.get('birthYear')?.invalid) {
+      errorFields.push('Birth Year');
+    }
+    
+    const errorMessage = errorFields.length > 0 
+      ? `Please fill in: ${errorFields.join(', ')}`
+      : 'Please fill all required fields correctly!';
+    
+    this.snackBar.open(errorMessage, 'Close', {
+      duration: 5000,
+      panelClass: ['error-snackbar'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top'
+    });
+    
+    Object.keys(this.studentForm.controls).forEach(key => {
+      const control = this.studentForm.get(key);
+      control?.markAsTouched();
+    });
   }
 
   constructor() {
