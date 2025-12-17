@@ -84,4 +84,18 @@ export class StudentList implements OnInit {
     
   }
 
+  deleteStudent(student: Student): void {
+    const confirmed = confirm(`Are you sure you want to delete ${student.firstName} ${student.lastName}?`);
+  
+    if (confirmed) {
+      this.studentService.deleteStudent(student.id);
+      this.loadStudents();
+    
+      this.snackBar.open(`Student ${student.firstName} deleted!`, 'Close', {
+        duration: 3000,
+        panelClass: ['success-snackbar']
+      });
+    }
+  }
+
 }

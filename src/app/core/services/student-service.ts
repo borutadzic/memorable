@@ -40,8 +40,16 @@ export class StudentService {
   }
 
   updateStudent(updatedStudent: Student): void {
-  this.students.update(students => 
-    students.map(s => s.id === updatedStudent.id ? updatedStudent : s)
-  );
-}
+    this.students.update(students => 
+      students.map(s => s.id === updatedStudent.id ? updatedStudent : s)
+    );
+  }
+
+  deleteStudent(id: number): void {
+    console.log('Deleting student with ID:', id);
+    this.students.update(students => 
+      students.filter(s => s.id !== id)
+    );
+  }
+
 }
