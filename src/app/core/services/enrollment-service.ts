@@ -1,17 +1,31 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Enrollment } from '../models/enrollment';
+import { StudentService } from './student-service';
+import { CourseService } from './course-service';
+import { MockData } from '../utils/mock-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EnrollmentService {
-  private enrollments = signal<Enrollment[]>([
-    { id: 1, studentId: 1, courseId: 1 },
-    { id: 2, studentId: 1, courseId: 3 },
-    { id: 3, studentId: 2, courseId: 2 },
-    { id: 4, studentId: 2, courseId: 4 },
-    { id: 5, studentId: 3, courseId: 1 },
-  ]);
+  private studentService = inject(StudentService);
+  private courseService = inject(CourseService);
+
+  private enrollments = signal<Enrollment[]>([]);
+
+  constructor() {
+    this.initializeEnrollments();
+  }
+
+  private initializeEnrollments(): void {
+    const students = this.studentService.getStudents();
+    const courses = this.courseService.getCourses();
+    
+    const initialEnrollments = MockData.generateEnrollments(students, courses);
+    
+    this.enrollments.set(initialEnrollments);
+    
+  }
 
   getEnrollments(): Enrollment[] {
     return this.enrollments();
