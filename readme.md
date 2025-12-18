@@ -7,3 +7,5 @@
 #Pagination gives the option for viewing 5, 10, 15 or 20 students per page
 #Spinner is present every time the student table loads
 #Snackbar warnings
+
+#CSS styling is minimal because I focused on the apps features
