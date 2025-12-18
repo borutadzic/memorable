@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Student } from '../../../../core/models/student';
 import { RouterModule } from '@angular/router';
 import { StudentService } from '../../../../core/services/student-service';
-import { NgFor } from '@angular/common';
 import { StudentForm } from '../../../students/student-form/student-form';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,6 +11,7 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { Spinner } from "../../../../shared/components/spinner/spinner";
+import { EnrollmentDialogComponent } from '../../../enrollment/enrollment-dialog/enrollment-dialog';
 
 @Component({
   selector: 'app-student-list',
@@ -97,5 +97,13 @@ export class StudentList implements OnInit {
       });
     }
   }
+
+  openEnrollmentDialog(student: Student): void {
+  this.dialog.open(EnrollmentDialogComponent, {
+    width: '600px',
+    maxHeight: '80vh',
+    data: { student }
+  });
+}
 
 }
